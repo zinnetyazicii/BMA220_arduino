@@ -1,0 +1,28 @@
+##To make file type make
+CC = g++
+CFLAGS = -g -Wall -Iinclude
+
+HEADER = bma220.h
+
+SRCS= bma220.cpp main.cpp
+
+OBJS = $(SRCS:.c++=.o)
+
+MAIN = BMA
+
+.PHONY: depend clean
+
+all:    $(MAIN)
+		@echo  Message For Seun: executable file ...main... has been created
+
+$(MAIN): $(OBJS) 
+		$(CC) $(CFLAGS) $(HEADER) -o $(MAIN) $(OBJS) $(LIBS)
+
+.c++.o:
+		$(CC) $(CFLAGS) $(HEADER) -cpp $<  -o $@
+
+clean:
+		$(RM) *.o *~ $(MAIN)
+
+depend: $(SRCS)
+		makedepend $(HEADER) $^
